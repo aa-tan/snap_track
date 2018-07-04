@@ -1,5 +1,6 @@
 import praw
 from datetime import datetime
+from time import sleep
 from configuration import *
 
 reddit = praw.Reddit(
@@ -8,8 +9,9 @@ reddit = praw.Reddit(
     user_agent='owner=ID_UNKNOWN'
 )
 
-subscribers = reddit.subreddit('thanosdidnothingwrong').subscribers
-
-with open('population.csv','a') as f:
-    now = str(datetime.now())
-    f.write("{},{}\n".format(now, subscribers))
+while(True):
+    sleep(60)
+    subscribers = reddit.subreddit('thanosdidnothingwrong').subscribers
+    with open('population.csv','a') as f:
+        now = str(datetime.now())
+        f.write("{},{}\n".format(now, subscribers))
