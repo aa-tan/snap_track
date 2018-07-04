@@ -1,6 +1,6 @@
 import praw
 from datetime import datetime
-from time import sleep
+import time
 from configuration import *
 
 reddit = praw.Reddit(
@@ -9,9 +9,10 @@ reddit = praw.Reddit(
     user_agent='owner=ID_UNKNOWN'
 )
 
+starttime=time.time()
 while(True):
-    sleep(60)
-    subscribers = reddit.subreddit('thanosdidnothingwrong').subscribers
     with open('population.csv','a') as f:
+        subscribers = reddit.subreddit('thanosdidnothingwrong').subscribers
         now = str(datetime.now())
         f.write("{},{}\n".format(now, subscribers))
+        time.sleep(60.0 - ((time.time() - starttime) % 60.0))
